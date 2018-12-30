@@ -2,12 +2,12 @@ package com.example.shayanmoradi.tamrin6firsttry.MainView;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.shayanmoradi.tamrin6firsttry.R;
 
-public class MainActivity extends SingleFragment {
+public class MainActivity extends AppCompatActivity {
     private static final String EXTRA_CRIME_ID = "com.example.amin.criminalintent.crime_id";
     private TabAdapter adapter;
     private TabLayout tabLayout;
@@ -24,6 +24,7 @@ public class MainActivity extends SingleFragment {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_container);
 
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -58,9 +59,5 @@ public class MainActivity extends SingleFragment {
     }
 
 
-    @Override
-    public Fragment createFragment() {
-        return new DoneTaskFragment();
 
-    }
 }
