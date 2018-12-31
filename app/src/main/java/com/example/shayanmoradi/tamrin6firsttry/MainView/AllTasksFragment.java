@@ -65,7 +65,7 @@ public class AllTasksFragment extends Fragment {
                 TaskManager.getInstance().addTask(task,0);
                 Intent intent = GetInfoActivity.newIntent(getActivity(),task.getmTaskId());
                 startActivity(intent);
-                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "you crated a null task you can edit it whenever you want", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
