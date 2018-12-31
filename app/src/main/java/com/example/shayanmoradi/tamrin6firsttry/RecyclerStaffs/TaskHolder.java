@@ -38,32 +38,17 @@ public class TaskHolder extends RecyclerView.ViewHolder {
 
     public void bind(Task crime) {
         mTask = crime;
-        mTitleTextView.setText(crime.getTitle());
-        String firstLetterString = crime.getTitle().substring(0, 1);
-        firstLetter.setText(firstLetterString);
+
+        if (crime.getTitle() != null) {
+            mTitleTextView.setText(crime.getTitle());
+            String firstLetterString = crime.getTitle().substring(0, 1);
+            firstLetter.setText(firstLetterString);
+        } else {
+            mTitleTextView.setText("uncomplited task");
+        }
+
 //        mDateTextView.setText(crime.getDate().toString());
 //        mSolvedImageView.setVisibility(crime.isSolved() == true ? View.VISIBLE : View.GONE);
     }
-//
-//    public void bindDone(Task crime) {
-//        mTask = crime;
-//        if (mTask.getmDoneOrUnDone() == true) {
-//            mTitleTextView.setText(crime.getTitle());
-//            String firstLetterString = crime.getTitle().substring(0, 1);
-//            firstLetter.setText(firstLetterString);
-//        }
-////        mDateTextView.setText(crime.getDate().toString());
-////        mSolvedImageView.setVisibility(crime.isSolved() == true ? View.VISIBLE : View.GONE);
-//    }
-//
-//    public void bindUnDone(Task crime) {
-//        mTask = crime;
-//        if (mTask.getmDoneOrUnDone() == false) {
-//            mTitleTextView.setText(crime.getTitle());
-//            String firstLetterString = crime.getTitle().substring(0, 1);
-//            firstLetter.setText(firstLetterString);
-//        }
-////        mDateTextView.setText(crime.getDate().toString());
-////        mSolvedImageView.setVisibility(crime.isSolved() == true ? View.VISIBLE : View.GONE);
-//    }
+
 }

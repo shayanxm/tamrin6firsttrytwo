@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.shayanmoradi.tamrin6firsttry.MainView.MainActivity;
 import com.example.shayanmoradi.tamrin6firsttry.Model.Task;
@@ -72,13 +73,14 @@ public class GetInfoFragment extends Fragment {
 
 
         final UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
+
         editText.setText(mCrime.getTitle());
         if (mCrime.getmDescription() != "no description enterd")
             editDes.setText(mCrime.getmDescription());
-        if (mCrime.getSimpleDate()!=null)
-        datePicker.setText(mCrime.getSimpleDate());
-        if (mCrime.getSimpleTime()!=null)
-        timePicker.setText(mCrime.getSimpleTime());
+        if (mCrime.getSimpleDate() != null)
+            datePicker.setText(mCrime.getSimpleDate());
+        if (mCrime.getSimpleTime() != null)
+            timePicker.setText(mCrime.getSimpleTime());
         mCrime = TaskManager.getInstance().getask(crimeId);
 
 //        if (mCrime.getYesForEditNoForCreate() == false) {
@@ -144,19 +146,23 @@ public class GetInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-
-                if (titleeText != null)
-                    mCrime.setTitle(titleeText + "");
+                if (titleeText != null) {
+                    if (titleeText != null)
+                        mCrime.setTitle(titleeText + "");
 //                if (desText != null)
-                if (desText == null) {
-                    mCrime.setmDescription("no description enterd");
-                } else {
-                    mCrime.setmDescription(desText);
+                    if (desText == null) {
+                        mCrime.setmDescription("no description enterd");
+                    } else {
+                        mCrime.setmDescription(desText);
+                    }
+                    //TaskManager.getInstance().addTask(mCrime);
+                    TaskManager.getInstance().deleteTaskDone(mCrime);
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(getActivity(),"you should enter title",Toast.LENGTH_SHORT).show();
+
                 }
-                //TaskManager.getInstance().addTask(mCrime);
-                TaskManager.getInstance().deleteTaskDone(mCrime);
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
             }
         });
         return view;
