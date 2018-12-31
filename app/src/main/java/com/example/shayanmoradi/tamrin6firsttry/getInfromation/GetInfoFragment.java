@@ -72,8 +72,15 @@ public class GetInfoFragment extends Fragment {
 
 
         final UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
-
+        editText.setText(mCrime.getTitle());
+        if (mCrime.getmDescription() != "no description enterd")
+            editDes.setText(mCrime.getmDescription());
+        if (mCrime.getSimpleDate()!=null)
+        datePicker.setText(mCrime.getSimpleDate());
+        if (mCrime.getSimpleTime()!=null)
+        timePicker.setText(mCrime.getSimpleTime());
         mCrime = TaskManager.getInstance().getask(crimeId);
+
 //        if (mCrime.getYesForEditNoForCreate() == false) {
 //            editOrCrearte.setVisibility(View.INVISIBLE);
 //        } else {
@@ -136,6 +143,8 @@ public class GetInfoFragment extends Fragment {
         addToList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 if (titleeText != null)
                     mCrime.setTitle(titleeText + "");
 //                if (desText != null)

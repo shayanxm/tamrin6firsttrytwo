@@ -31,6 +31,7 @@ public class TaskDetailFragment extends Fragment {
     private Button delteBtn;
     private Button editBtn;
     private Button doneBtn;
+    private boolean deleteOrNo ;
     public static final String ARG_CRIME_ID = "crimeId";
 
     public static TaskDetailFragment newInstance(UUID crimeId) {
@@ -77,11 +78,14 @@ public class TaskDetailFragment extends Fragment {
         delteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TaskManager.getInstance().deleteTask(task);
-                TaskManager.getInstance().deleteTaskUNDone(task);
-                TaskManager.getInstance().deleteTaskDone(task);
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
+                //new AreYouSureToDeleteFragment().show(getFragmentManager(), "MyDialog");
+
+
+                AreYouSureToDeleteFragment datePickerFragment = new AreYouSureToDeleteFragment();
+                datePickerFragment.setTargetFragment(TaskDetailFragment.this,
+                        0);
+                datePickerFragment.show(getFragmentManager(), "MyDialog");
+
             }
         });
         editBtn.setOnClickListener(new View.OnClickListener() {
@@ -113,4 +117,22 @@ public class TaskDetailFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode ==0) {
+
+            deleteOrNo = (boolean) data.getSerializableExtra("test");
+            if (deleteOrNo == true) {
+                TaskManager.getInstance().deleteTask(task);
+                TaskManager.getInstance().deleteTaskUNDone(task);
+                TaskManager.getInstance().deleteTaskDone(task);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+            }
+
+        }
+
+    }
 }
