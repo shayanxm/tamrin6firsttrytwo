@@ -29,10 +29,11 @@ public class AllTasksFragment extends Fragment {
     private static final String TAB_TYPE = "tab_type";
     private List<Task> mTasks;
     private LinearLayout notingToShow;
+
     public static AllTasksFragment newInstance(int tabType) {
 
         Bundle args = new Bundle();
-        args.putInt(TAB_TYPE,tabType);
+        args.putInt(TAB_TYPE, tabType);
         AllTasksFragment fragment = new AllTasksFragment();
         fragment.setArguments(args);
         return fragment;
@@ -50,20 +51,20 @@ public class AllTasksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragmen_all_tasks, container, false);
+        View view = inflater.inflate(R.layout.fragmen_all_tasks, container, false);
         mRecyclerView = view.findViewById(R.id.all_tasks_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         TaskAdapter tasksAdapter = new TaskAdapter(TaskManager.getInstance().getAllTasks());
         mRecyclerView.setAdapter(tasksAdapter);
-       notingToShow= view.findViewById(R.id.nothing_to_sho_image_view);
+        notingToShow = view.findViewById(R.id.nothing_to_sho_image_view);
         FloatingActionButton fab = view.findViewById(R.id.floatingActionButton);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Task task = new Task();
-                TaskManager.getInstance().addTask(task,0);
-                Intent intent = GetInfoActivity.newIntent(getActivity(),task.getmTaskId());
+                TaskManager.getInstance().addTask(task, 0);
+                Intent intent = GetInfoActivity.newIntent(getActivity(), task.getmTaskId());
                 startActivity(intent);
                 Snackbar.make(view, "you crated a null task you can edit it whenever you want", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
@@ -72,6 +73,7 @@ public class AllTasksFragment extends Fragment {
         updateUI();
         return view;
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -80,17 +82,15 @@ public class AllTasksFragment extends Fragment {
 
 
     }
+
     @Override
     public void onResume() {
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//
-//        updateUI();
-super.onResume();
+        super.onResume();
 
         int tabType = getArguments().getInt(TAB_TYPE);
         TaskManager taskManager = TaskManager.getInstance();
 
-        switch (tabType){
+        switch (tabType) {
             case 0:
                 mTasks = taskManager.getAllTasks();
                 invisOrVisibleThings();
@@ -110,11 +110,10 @@ super.onResume();
     }
 
     private void invisOrVisibleThings() {
-        if (mTasks.size()==0) {
+        if (mTasks.size() == 0) {
             mRecyclerView.setVisibility(View.GONE);
             notingToShow.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             mRecyclerView.setVisibility(View.VISIBLE);
             notingToShow.setVisibility(View.GONE);
         }
@@ -127,7 +126,7 @@ super.onResume();
             mTaskAdapter = new TaskAdapter(tasks);
             mRecyclerView.setAdapter(mTaskAdapter);
         } else {
-//            mCrimeAdapter.setCrimes(crimes);
+
             mTaskAdapter.notifyDataSetChanged();
         }
     }

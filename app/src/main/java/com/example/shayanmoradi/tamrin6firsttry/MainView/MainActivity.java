@@ -1,5 +1,7 @@
 package com.example.shayanmoradi.tamrin6firsttry.MainView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -14,11 +16,11 @@ public class MainActivity extends AppCompatActivity {
     private  ViewPager viewPager;
 
 
-//    public static Intent newIntent(Context context, UUID crimeId) {
-//        Intent intent = new Intent(context, CrimeDetailActivity.class);
-//        intent.putExtra(EXTRA_CRIME_ID, crimeId);
-//        return intent;
-//    }
+    public static Intent newIntent(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+
+        return intent;
+    }
 
 
     @Override
@@ -30,21 +32,17 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         adapter = new TabAdapter(getSupportFragmentManager());
-        adapter.addFragment(new AllTasksFragment(), "All tasks");
+        adapter.addFragment(new AllTasksFragment(), getString(R.string.all_task));
         adapter.addFragment(new AllTasksFragment(), "Done Tasks");
         adapter.addFragment(new AllTasksFragment(), "un Done Task ");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-        TabAdapter tabAdapter = new TabAdapter(getSupportFragmentManager());
 
 
-//
-//            tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-//            tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-//            tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             public void onPageScrollStateChanged(int state) {
-             //   Toast.makeText(MainActivity.this,"reusme",Toast.LENGTH_LONG).show();
+
 
             }
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}

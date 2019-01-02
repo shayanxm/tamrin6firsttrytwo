@@ -73,8 +73,8 @@ public class GetInfoFragment extends Fragment {
 
 
         final UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
-
         editText.setText(mCrime.getTitle());
+        titleeText=mCrime.getTitle();
         if (mCrime.getmDescription() != "no description enterd")
             editDes.setText(mCrime.getmDescription());
         if (mCrime.getSimpleDate() != null)
@@ -83,17 +83,12 @@ public class GetInfoFragment extends Fragment {
             timePicker.setText(mCrime.getSimpleTime());
         mCrime = TaskManager.getInstance().getask(crimeId);
 
-//        if (mCrime.getYesForEditNoForCreate() == false) {
-//            editOrCrearte.setVisibility(View.INVISIBLE);
-//        } else {
-//            mCrime.setmDoneOrUnDone(editOrCrearte.isChecked());
-//        }
 
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Date date = RandomData.randomDate();
+
                 DatePickerFragment datePickerFragment = DatePickerFragment.newInstance(mCrime.getmDate());
                 datePickerFragment.setTargetFragment(GetInfoFragment.this,
                         REQ_DATE_PICKER);
@@ -146,8 +141,7 @@ public class GetInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (titleeText != null) {
-                    if (titleeText != null)
+                if (titleeText != null&&titleeText.length()>0) {
                         mCrime.setTitle(titleeText + "");
 //                if (desText != null)
                     if (desText == null) {
@@ -155,7 +149,7 @@ public class GetInfoFragment extends Fragment {
                     } else {
                         mCrime.setmDescription(desText);
                     }
-                    //TaskManager.getInstance().addTask(mCrime);
+
                     TaskManager.getInstance().deleteTaskDone(mCrime);
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);

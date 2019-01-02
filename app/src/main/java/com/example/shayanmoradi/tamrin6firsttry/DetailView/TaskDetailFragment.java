@@ -31,7 +31,7 @@ public class TaskDetailFragment extends Fragment {
     private Button delteBtn;
     private Button editBtn;
     private Button doneBtn;
-    private boolean deleteOrNo ;
+    private boolean deleteOrNo;
     public static final String ARG_CRIME_ID = "crimeId";
 
     public static TaskDetailFragment newInstance(UUID crimeId) {
@@ -66,20 +66,11 @@ public class TaskDetailFragment extends Fragment {
 
         task = TaskManager.getInstance().getask(crimeId);
 
-        title.setText(task.getTitle() + "");
-        if (task.getmDescription() == "null841") {
-            descTxt.setText("no decription!");
-        }
-        descTxt.setText(task.getmDescription());
+        setViewsDetialsUp();
 
-        timeTxt.setText(task.getSimpleTime() + "");
-
-        dateTxt.setText(task.getSimpleDate());
         delteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //new AreYouSureToDeleteFragment().show(getFragmentManager(), "MyDialog");
-
 
                 AreYouSureToDeleteFragment datePickerFragment = new AreYouSureToDeleteFragment();
                 datePickerFragment.setTargetFragment(TaskDetailFragment.this,
@@ -91,48 +82,62 @@ public class TaskDetailFragment extends Fragment {
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 task.setYesForEditNoForCreate(true);
                 startActivity(GetInfoActivity.newIntent(getActivity(), crimeId));
-//            TaskManager.getInstance().deleteTask(task);
-
-
             }
         });
         doneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (task.getmDoneOrUnDone() != true) {
-                    task.setmDoneOrUnDone(true);
-                    TaskManager.getInstance().addTask(task, 1);
-                    TaskManager.getInstance().deleteTaskUNDone(task);
-                    TaskManager.getInstance().deleteTaskUNDone(task);
-
+                    editTask();
                 }
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
+                getActivity().finish();
+//                startActivity(MainActivityity.newIntent(getActivity()));
             }
         });
         return view;
+    }
+
+    private void setViewsDetialsUp() {
+        title.setText(task.getTitle() + "");
+        if (task.getmDescription() == "null841") {
+            descTxt.setText("no decription!");
+        }
+        descTxt.setText(task.getmDescription());
+
+        timeTxt.setText(task.getSimpleTime() + "");
+
+        dateTxt.setText(task.getSimpleDate());
+    }
+
+    private void editTask() {
+        task.setmDoneOrUnDone(true);
+        TaskManager.getInstance().addTask(task, 1);
+        TaskManager.getInstance().deleteTaskUNDone(task);
+        TaskManager.getInstance().deleteTaskUNDone(task);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode ==0) {
+        if (requestCode == 0) {
 
             deleteOrNo = (boolean) data.getSerializableExtra("test");
             if (deleteOrNo == true) {
-                TaskManager.getInstance().deleteTask(task);
-                TaskManager.getInstance().deleteTaskUNDone(task);
-                TaskManager.getInstance().deleteTaskDone(task);
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
+                deleteTask();
             }
 
         }
 
+    }
+
+    private void deleteTask() {
+        TaskManager.getInstance().deleteTask(task);
+        TaskManager.getInstance().deleteTaskUNDone(task);
+        TaskManager.getInstance().deleteTaskDone(task);
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
     }
 }
