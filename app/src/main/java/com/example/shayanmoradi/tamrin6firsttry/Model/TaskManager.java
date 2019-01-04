@@ -7,13 +7,10 @@ import java.util.UUID;
 public class TaskManager {
     private static TaskManager instance;
     ArrayList<Task> mTAskMap;
-    ArrayList<Task> mTAskDone;
-    ArrayList<Task> mTAsUnDone;
 
     private TaskManager() {
         mTAskMap = new ArrayList<>();
-        mTAskDone = new ArrayList<>();
-        mTAsUnDone = new ArrayList<>();
+
 //        for (int i = 0; i < 100; i++) {
 //            Task task = new Task();
 //            task.setTitle("task#" + i);
@@ -25,28 +22,43 @@ public class TaskManager {
 
     }
 
-    public void addTask(Task task, int which) {
-        switch (which) {
+    public void addTask(Task task, int ZeroForAlloneForDoneTwoForUnDone) {
+        switch (ZeroForAlloneForDoneTwoForUnDone) {
             case 0:
+                task.setZeroForAlloneForDoneTwoForUnDone(0);
                 mTAskMap.add(task);
+                break;
             case 1:
-                mTAskDone.add(task);
+                mTAskMap.add(task);
+                task.setZeroForAlloneForDoneTwoForUnDone(1);
+                break;
             case 2:
-                mTAsUnDone.add(task);
+                mTAskMap.add(task);
+                task.setZeroForAlloneForDoneTwoForUnDone(2);
+                break;
         }
     }
-
+    public void deleteTask(Task task, int ZeroForAlloneForDoneTwoForUnDone) {
+        switch (ZeroForAlloneForDoneTwoForUnDone) {
+            case 0:
+                task.setZeroForAlloneForDoneTwoForUnDone(0);
+                mTAskMap.add(task);
+                break;
+            case 1:
+                mTAskMap.add(task);
+                task.setZeroForAlloneForDoneTwoForUnDone(1);
+                break;
+            case 2:
+                mTAskMap.add(task);
+                task.setZeroForAlloneForDoneTwoForUnDone(2);
+                break;
+        }
+    }
     public void deleteTask(Task task) {
         mTAskMap.remove(task);
     }
 
-    public void deleteTaskUNDone(Task task) {
-        mTAsUnDone.remove(task);
-    }
 
-    public void deleteTaskDone(Task task) {
-        mTAskDone.remove(task);
-    }
 
     public static TaskManager getInstance() {
         if (instance == null)
@@ -65,12 +77,26 @@ public class TaskManager {
     }
 
     public List<Task> getDoneTasks() {
-        List<Task> valueList = mTAskDone;
+
+        List<Task> valueList = new ArrayList<>();
+
+        for (int i = 0; i < mTAskMap.size(); i++) {
+            if (mTAskMap.get(i).getZeroForAlloneForDoneTwoForUnDone() == 1) {
+                valueList.add(mTAskMap.get(i));
+            }
+
+        }
         return valueList;
     }
 
-    public List<Task> getUndoneTasks()   {
-        List<Task>valueList =mTAsUnDone;
+    public List<Task> getUndoneTasks() {
+        List<Task> valueList = new ArrayList<>();;
+        for (int i = 0; i < mTAskMap.size(); i++) {
+            if (mTAskMap.get(i).getZeroForAlloneForDoneTwoForUnDone() !=1) {
+                valueList.add(mTAskMap.get(i));
+            }
+
+        }
         return valueList;
     }
 

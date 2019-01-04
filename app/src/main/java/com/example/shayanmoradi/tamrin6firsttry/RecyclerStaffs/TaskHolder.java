@@ -1,5 +1,6 @@
 package com.example.shayanmoradi.tamrin6firsttry.RecyclerStaffs;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +17,7 @@ public class TaskHolder extends RecyclerView.ViewHolder {
     private TextView firstLetter;
 
     private Task mTask;
-
+    Context context;
     public TaskHolder(@NonNull final View itemView) {
         super(itemView);
 
@@ -30,6 +31,15 @@ public class TaskHolder extends RecyclerView.ViewHolder {
                 //      for task click
 
                 mTask.setYesForEditNoForCreate(false);
+               itemView.getContext();
+//                DialogFragment newFragment = TaskDetailFragment.newInstance(
+//                        mTask.getmTaskId());
+//                FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+//                final MainActivity activity = (Activity) context;
+
+                // Return the fragment manager
+
+//                newFragment.show(fragmentManager, "dialog");
                 Intent intent = DetailtaskActivity.newIntent(itemView.getContext(), mTask.getmTaskId());
                 itemView.getContext().startActivity(intent);
             }
@@ -50,5 +60,8 @@ public class TaskHolder extends RecyclerView.ViewHolder {
 //        mDateTextView.setText(crime.getDate().toString());
 //        mSolvedImageView.setVisibility(crime.isSolved() == true ? View.VISIBLE : View.GONE);
     }
+    void showDialog() {
 
+    }
 }
+

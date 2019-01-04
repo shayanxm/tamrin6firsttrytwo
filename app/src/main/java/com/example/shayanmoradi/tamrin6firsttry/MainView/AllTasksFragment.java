@@ -3,8 +3,10 @@ package com.example.shayanmoradi.tamrin6firsttry.MainView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.example.shayanmoradi.tamrin6firsttry.DetailView.TaskDetailFragment;
 import com.example.shayanmoradi.tamrin6firsttry.Model.Task;
 import com.example.shayanmoradi.tamrin6firsttry.Model.TaskManager;
 import com.example.shayanmoradi.tamrin6firsttry.R;
@@ -20,6 +23,7 @@ import com.example.shayanmoradi.tamrin6firsttry.RecyclerStaffs.TaskAdapter;
 import com.example.shayanmoradi.tamrin6firsttry.getInfromation.GetInfoActivity;
 
 import java.util.List;
+import java.util.UUID;
 
 
 /**
@@ -47,6 +51,8 @@ public class AllTasksFragment extends Fragment {
     }
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,6 +78,12 @@ public class AllTasksFragment extends Fragment {
         });
         updateUI();
         return view;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -130,4 +142,12 @@ public class AllTasksFragment extends Fragment {
             mTaskAdapter.notifyDataSetChanged();
         }
     }
+    UUID uuid= UUID.randomUUID();
+    void showDialog() {
+        DialogFragment newFragment = TaskDetailFragment.newInstance(
+                uuid);
+        newFragment.show(getFragmentManager(), "dialog");
+    }
+
 }
+

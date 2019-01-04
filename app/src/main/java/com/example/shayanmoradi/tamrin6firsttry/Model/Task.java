@@ -10,7 +10,7 @@ public class Task {
     private Date mDate;
     private String simpleTime;
     private String simpleDate;
-    private boolean mDoneOrUnDone;
+    private int zeroForAlloneForDoneTwoForUnDone;
     private boolean yesForEditNoForCreate;
 
     public boolean getYesForEditNoForCreate() {
@@ -74,11 +74,11 @@ mDate = new Date();
         this.mDate = mDate;
     }
 
-    public boolean getmDoneOrUnDone() {
-        return mDoneOrUnDone;
+    public int getZeroForAlloneForDoneTwoForUnDone() {
+        return zeroForAlloneForDoneTwoForUnDone;
     }
 
-    public void setmDoneOrUnDone(boolean mDoneOrUnDone) {
-        this.mDoneOrUnDone = mDoneOrUnDone;
+    public void setZeroForAlloneForDoneTwoForUnDone(int zeroForAlloneForDoneTwoForUnDone) {
+        this.zeroForAlloneForDoneTwoForUnDone = zeroForAlloneForDoneTwoForUnDone;
     }
 }

@@ -150,7 +150,7 @@ public class GetInfoFragment extends Fragment {
                         mCrime.setmDescription(desText);
                     }
 
-                    TaskManager.getInstance().deleteTaskDone(mCrime);
+                  //  TaskManager.getInstance().deleteTaskDone(mCrime);
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
                 }else {

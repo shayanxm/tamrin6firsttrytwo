@@ -1,13 +1,18 @@
 package com.example.shayanmoradi.tamrin6firsttry.DetailView;
 
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.shayanmoradi.tamrin6firsttry.MainView.MainActivity;
@@ -22,7 +27,7 @@ import java.util.UUID;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TaskDetailFragment extends Fragment {
+public class TaskDetailFragment extends DialogFragment {
     private TextView title;
     public Task task;
     private TextView descTxt;
@@ -32,6 +37,7 @@ public class TaskDetailFragment extends Fragment {
     private Button editBtn;
     private Button doneBtn;
     private boolean deleteOrNo;
+    private LinearLayout dilaogLinear;
     public static final String ARG_CRIME_ID = "crimeId";
 
     public static TaskDetailFragment newInstance(UUID crimeId) {
@@ -55,6 +61,7 @@ public class TaskDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_task_detail, container, false);
 
+
         final UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
         title = view.findViewById(R.id.detail_title);
         delteBtn = view.findViewById(R.id.delete_task);
@@ -63,6 +70,7 @@ public class TaskDetailFragment extends Fragment {
         descTxt = view.findViewById(R.id.detail_des);
         timeTxt = view.findViewById(R.id.detail_time);
         dateTxt = view.findViewById(R.id.detail_date);
+        dilaogLinear = view.findViewById(R.id.dialog_date_date_picker);
 
         task = TaskManager.getInstance().getask(crimeId);
 
@@ -89,14 +97,51 @@ public class TaskDetailFragment extends Fragment {
         doneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (task.getmDoneOrUnDone() != true) {
+                if (task.getZeroForAlloneForDoneTwoForUnDone() != 1) {
                     editTask();
                 }
                 getActivity().finish();
 //                startActivity(MainActivityity.newIntent(getActivity()));
             }
         });
+
+        new AlertDialog.Builder(getActivity())
+                .setView(dilaogLinear)
+                .setTitle("test")
+
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+//                        Date date = new GregorianCalendar(year, month, day).getTime();
+//                        sendResult(date);
+                    }
+                }).create();
         return view;
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        int title = getArguments().getInt("title");
+
+        return new AlertDialog.Builder(getActivity())
+                .setIcon(R.drawable.icons8_checkmark_filled_100)
+                .setTitle("hg")
+                .setPositiveButton("po",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+//                                (getActivity()).doPositiveClick();
+                            }
+                        }
+                )
+                .setNegativeButton("neg",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+//                                ((FragmentAlertDialog)getActivity()).doNegativeClick();
+                            }
+                        }
+                )
+                .create();
     }
 
     private void setViewsDetialsUp() {
@@ -112,10 +157,10 @@ public class TaskDetailFragment extends Fragment {
     }
 
     private void editTask() {
-        task.setmDoneOrUnDone(true);
-        TaskManager.getInstance().addTask(task, 1);
-        TaskManager.getInstance().deleteTaskUNDone(task);
-        TaskManager.getInstance().deleteTaskUNDone(task);
+        task.setZeroForAlloneForDoneTwoForUnDone(1);
+//        TaskManager.getInstance().addTask(task, 1);
+//        TaskManager.getInstance().deleteTaskUNDone(task);
+//        TaskManager.getInstance().deleteTaskUNDone(task);
     }
 
     @Override
@@ -135,8 +180,7 @@ public class TaskDetailFragment extends Fragment {
 
     private void deleteTask() {
         TaskManager.getInstance().deleteTask(task);
-        TaskManager.getInstance().deleteTaskUNDone(task);
-        TaskManager.getInstance().deleteTaskDone(task);
+
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
     }

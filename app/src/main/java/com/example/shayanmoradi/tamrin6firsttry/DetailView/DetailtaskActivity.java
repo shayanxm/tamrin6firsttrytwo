@@ -16,6 +16,7 @@ public class DetailtaskActivity extends AppCompatActivity {
     private Task taski = new Task();
     private static final String EXRTA_TASK_ID = "com.example.shayanmoradi.tamrin6firsttry.DetailView.task_id";
     public static final String ARG_CRIME_ID = "crimeId";
+    private static final String DIALOG_TAG = "DialogDate";
 
     public static Intent newIntent(Context context, UUID taskId) {
         Intent intent = new Intent(context, DetailtaskActivity.class);
@@ -28,7 +29,7 @@ public class DetailtaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailtask);
         baseId = (UUID) getIntent().getSerializableExtra(EXRTA_TASK_ID);
-
+//showDialog();
         TaskDetailFragment.newInstance(baseId);
         Fragment fragment = TaskDetailFragment.newInstance(baseId);
         getSupportFragmentManager()
@@ -39,4 +40,19 @@ public class DetailtaskActivity extends AppCompatActivity {
 
 
     }
+//    void showDialog() {
+////        TaskDetailFragment newFragment = TaskDetailFragment();
+////        newFragment.show(getFragmentManager(), "dialog");
+//        TaskDetailFragment timePickerFragment = TaskDetailFragment.newInstance(baseId);
+//        timePickerFragment.setTargetFragment(DetailtaskActivity.this,
+//                0);
+//        timePickerFragment.show(getFragmentManager(),DIALOG_TAG);
+//    }
+
+
+//void showDialog() {
+//    DialogFragment newFragment = TaskDetailFragment.newInstance(
+//    baseId);
+//    newFragment.show(getSupportFragmentManager(), "dialog");
+//}
 }
