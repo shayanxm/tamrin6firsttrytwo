@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.example.shayanmoradi.tamrin6firsttry.DetailView.TaskDetailFragment;
 import com.example.shayanmoradi.tamrin6firsttry.Model.Task;
 import com.example.shayanmoradi.tamrin6firsttry.Model.TaskManager;
 import com.example.shayanmoradi.tamrin6firsttry.R;
@@ -60,8 +58,8 @@ public class AllTasksFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragmen_all_tasks, container, false);
         mRecyclerView = view.findViewById(R.id.all_tasks_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        TaskAdapter tasksAdapter = new TaskAdapter(TaskManager.getInstance().getAllTasks());
-        mRecyclerView.setAdapter(tasksAdapter);
+       // TaskAdapter tasksAdapter = new TaskAdapter(TaskManager.getInstance(getContext()).getAllTasks());
+       // mRecyclerView.setAdapter(tasksAdapter);
         notingToShow = view.findViewById(R.id.nothing_to_sho_image_view);
         FloatingActionButton fab = view.findViewById(R.id.floatingActionButton);
 
@@ -69,7 +67,9 @@ public class AllTasksFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Task task = new Task();
-                TaskManager.getInstance().addTask(task, 0);
+                TaskManager.getInstance(getActivity()).update(task);
+                task.setTitle("test");
+                TaskManager.getInstance(getContext()).addTask(task, 0);
                 Intent intent = GetInfoActivity.newIntent(getActivity(), task.getmTaskId());
                 startActivity(intent);
                 Snackbar.make(view, "you crated a null task you can edit it whenever you want", Snackbar.LENGTH_LONG)
@@ -100,7 +100,7 @@ public class AllTasksFragment extends Fragment {
         super.onResume();
 
         int tabType = getArguments().getInt(TAB_TYPE);
-        TaskManager taskManager = TaskManager.getInstance();
+        TaskManager taskManager = TaskManager.getInstance(getContext());
 
         switch (tabType) {
             case 0:
@@ -131,9 +131,15 @@ public class AllTasksFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
     private void updateUI() {
-        TaskManager taskManager = TaskManager.getInstance();
-        List<Task> tasks = taskManager.getTasks();
+        TaskManager taskManager = TaskManager.getInstance(getContext());
+        List<Task> tasks = taskManager.getAllTasks();
         if (mTaskAdapter == null) {
             mTaskAdapter = new TaskAdapter(tasks);
             mRecyclerView.setAdapter(mTaskAdapter);
@@ -142,12 +148,9 @@ public class AllTasksFragment extends Fragment {
             mTaskAdapter.notifyDataSetChanged();
         }
     }
+
     UUID uuid= UUID.randomUUID();
-    void showDialog() {
-        DialogFragment newFragment = TaskDetailFragment.newInstance(
-                uuid);
-        newFragment.show(getFragmentManager(), "dialog");
-    }
+
 
 }
 

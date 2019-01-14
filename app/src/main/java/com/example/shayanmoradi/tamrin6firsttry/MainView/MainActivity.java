@@ -4,10 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.shayanmoradi.tamrin6firsttry.DetailView.TaskDetailFragment;
 import com.example.shayanmoradi.tamrin6firsttry.R;
+
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
     private static final String EXTRA_CRIME_ID = "com.example.amin.criminalintent.crime_id";
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setOffscreenPageLimit(3);
     }
+
 
 
 

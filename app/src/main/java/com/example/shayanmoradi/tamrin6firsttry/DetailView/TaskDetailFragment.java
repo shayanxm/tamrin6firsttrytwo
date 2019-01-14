@@ -72,7 +72,7 @@ public class TaskDetailFragment extends DialogFragment {
         dateTxt = view.findViewById(R.id.detail_date);
         dilaogLinear = view.findViewById(R.id.dialog_date_date_picker);
 
-        task = TaskManager.getInstance().getask(crimeId);
+        task = TaskManager.getInstance(getContext()).getask(crimeId);
 
         setViewsDetialsUp();
 
@@ -118,6 +118,12 @@ public class TaskDetailFragment extends DialogFragment {
                     }
                 }).create();
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TaskManager.getInstance(getActivity()).update(task);
     }
 
     @Override
@@ -179,7 +185,7 @@ public class TaskDetailFragment extends DialogFragment {
     }
 
     private void deleteTask() {
-        TaskManager.getInstance().deleteTask(task);
+        TaskManager.getInstance(getContext()).deleteTask(task);
 
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);

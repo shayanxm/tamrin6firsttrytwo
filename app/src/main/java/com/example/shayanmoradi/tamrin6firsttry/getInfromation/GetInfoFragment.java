@@ -73,6 +73,8 @@ public class GetInfoFragment extends Fragment {
 
 
         final UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
+        mCrime = TaskManager.getInstance(getContext()).getask(crimeId);
+
         editText.setText(mCrime.getTitle());
         titleeText=mCrime.getTitle();
         if (mCrime.getmDescription() != "no description enterd")
@@ -81,7 +83,7 @@ public class GetInfoFragment extends Fragment {
             datePicker.setText(mCrime.getSimpleDate());
         if (mCrime.getSimpleTime() != null)
             timePicker.setText(mCrime.getSimpleTime());
-        mCrime = TaskManager.getInstance().getask(crimeId);
+
 
 
         datePicker.setOnClickListener(new View.OnClickListener() {
@@ -168,7 +170,7 @@ public class GetInfoFragment extends Fragment {
 
         UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
 
-        mCrime = TaskManager.getInstance().getask(crimeId);
+        mCrime = TaskManager.getInstance(getContext()).getask(crimeId);
 
     }
 

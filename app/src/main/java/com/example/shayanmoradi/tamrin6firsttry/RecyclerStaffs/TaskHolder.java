@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.shayanmoradi.tamrin6firsttry.DetailView.DetailtaskActivity;
+import com.example.shayanmoradi.tamrin6firsttry.MainView.MainActivity;
 import com.example.shayanmoradi.tamrin6firsttry.Model.Task;
 import com.example.shayanmoradi.tamrin6firsttry.R;
 
@@ -32,14 +33,22 @@ public class TaskHolder extends RecyclerView.ViewHolder {
 
                 mTask.setYesForEditNoForCreate(false);
                itemView.getContext();
-//                DialogFragment newFragment = TaskDetailFragment.newInstance(
+//             DialogFragment newFragment = TaskDetailFragment.newInstance(
 //                        mTask.getmTaskId());
-//                FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
-//                final MainActivity activity = (Activity) context;
 
+               // FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+
+                MainActivity f = new MainActivity();
+           //   f.showDialog(mTask.getmTaskId());
                 // Return the fragment manager
-
-//                newFragment.show(fragmentManager, "dialog");
+//
+//
+//                public  void showDialog(UUID id) {
+//                    DialogFragment newFragment = TaskDetailFragment.newInstance(
+//                            id);
+//
+//                    newFragment.show(getSupportFragmentManager(), "dialog");
+//                }
                 Intent intent = DetailtaskActivity.newIntent(itemView.getContext(), mTask.getmTaskId());
                 itemView.getContext().startActivity(intent);
             }

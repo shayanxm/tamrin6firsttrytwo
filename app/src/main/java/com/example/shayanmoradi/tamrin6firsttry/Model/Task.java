@@ -22,8 +22,12 @@ public class Task {
     }
 
     public Task() {
-mTaskId= UUID.randomUUID();
-mDate = new Date();
+
+        this(UUID.randomUUID());
+    }
+    public Task(UUID uuid){
+        mTaskId= UUID.randomUUID();
+        mDate = new Date();
     }
 
     public String getSimpleTime() {
